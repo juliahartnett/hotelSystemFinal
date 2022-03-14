@@ -254,18 +254,21 @@ import java.util.ArrayList;
 			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
 			String password = scan.next();
 			
+			
+			password = validation.validatePasswords(password);
+			
 			// validate length of password is >= 8
-			char passGood = 'n';		
-			if(password.length() >= 8) {
-				passGood = 'y';	
-			}
-			while(passGood != 'y') {
-				System.out.println("Password not long enough! Password must contain 8 characters.");
-				password = scan.next();
-				if(password.length() > 8) {
-					passGood = 'y';	
-				}			
-			} // end validation loop		
+			//char passGood = 'n';		
+			//if(password.length() >= 8) {
+				//passGood = 'y';	
+			//}
+			//while(passGood != 'y') {
+				//System.out.println("Password not long enough! Password must contain 8 characters.");
+				//password = scan.next();
+				//if(password.length() > 8) {
+					//passGood = 'y';	
+				//}			
+			//} // end validation loop		
 			
 			person.add(password);
 					
