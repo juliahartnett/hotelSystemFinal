@@ -1,8 +1,11 @@
 package hotelSystem;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
+import java.io.IOException;
 
 	public class hotelSystem {
 		
@@ -162,18 +165,20 @@ import java.util.ArrayList;
 						// if they want to continue as a guest
 						System.out.println("Enter your email: ");
 						String email = scan.next();
-						char emailGood = 'n';
+						
+						email = emailValidation.validateEmail(email);
+						//char emailGood = 'n';
 											
-						if(email.contains("@") && email.contains(".")) { // checks for a valid email
-							emailGood = 'y';
-						}
-						while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
-							System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
-							email = scan.next();
-							if(email.contains("@") && email.contains(".")) {
-								emailGood = 'y';
-							}
-						} // end validation loop
+						//if(email.contains("@") && email.contains(".")) { // checks for a valid email
+							//emailGood = 'y';
+						//}
+						//while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
+							//System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
+							//email = scan.next();
+							//if(email.contains("@") && email.contains(".")) {
+								//emailGood = 'y';
+							//}
+						//} // end validation loop
 						System.out.println("Enter your first name: ");
 						String firstName = scan.next();
 						System.out.println("Enter your last name: ");
@@ -230,20 +235,22 @@ import java.util.ArrayList;
 			
 			ArrayList<String> person = new ArrayList<String>();
 
-			char emailGood = 'n';
+			//char emailGood = 'n';
 			System.out.println("Enter your email address: ");
 			String email = scan.next();
 			
-			if(email.contains("@") && email.contains(".")) { // checks for a valid email
-				emailGood = 'y';
-			}
-			while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
-				System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
-				email = scan.next();
-				if(email.contains("@") && email.contains(".")) {
-					emailGood = 'y';
-				}
-			} // end validation loop		
+			email = emailValidation.validateEmail(email);
+			
+			//if(email.contains("@") && email.contains(".")) { // checks for a valid email
+				//emailGood = 'y';
+			//}
+			//while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
+				//System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
+				//email = scan.next();
+				//if(email.contains("@") && email.contains(".")) {
+					//emailGood = 'y';
+				//}
+			//} // end validation loop		
 			
 			if(customers.containsKey(email)) { // if there is already an account with this email
 				System.out.println("An account with this email already exists. Try logging in. ");
@@ -253,23 +260,9 @@ import java.util.ArrayList;
 			
 			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
 			String password = scan.next();
-			
-			
+
 			password = validation.validatePasswords(password);
-			
-			// validate length of password is >= 8
-			//char passGood = 'n';		
-			//if(password.length() >= 8) {
-				//passGood = 'y';	
-			//}
-			//while(passGood != 'y') {
-				//System.out.println("Password not long enough! Password must contain 8 characters.");
-				//password = scan.next();
-				//if(password.length() > 8) {
-					//passGood = 'y';	
-				//}			
-			//} // end validation loop		
-			
+
 			person.add(password);
 					
 			System.out.println("Enter your first name: ");
@@ -289,6 +282,24 @@ import java.util.ArrayList;
 			person.add(phoneNumber);
 			
 			customers.put(email, person); // add the persons info to the hashmap
+			
+			
+			// write the users data to the file
+			try {
+				createFile();
+				
+			}catch(Exception e) {
+				System.out.println("Error creating file");
+			}
+			
+			
+			
+			try {
+				writeToFile(email, password, firstName, lastName, country, zipCode, phoneNumber);
+				
+			}catch(Exception e) {
+				System.out.println("Error writing user data to file");
+			}
 			
 			System.out.println("Account created. Please sign in.");
 
@@ -354,6 +365,34 @@ import java.util.ArrayList;
 			}			
 			
 		} // end signOut function
+		
+		public static void createFile() {
+			try {
+				File myObj = new File("customers.txt");
+				if (myObj.createNewFile()) {
+					System.out.println("File created");
+				}
+				else {
+					System.out.println("File already exists");
+				}	
+			} catch (IOException e) {
+				System.out.println("Error creating the file");
+				e.printStackTrace();							
+			}
+						
+		}
+		
+		public static void writeToFile(String email, String password, String firstName, String lastName, String country, String zipCode, String phoneNumber) {
+			try {
+				String customer = email + " " +  password  + " " + firstName + " " + lastName + " " + country + " " + zipCode + " " + phoneNumber + "\n";
+				FileWriter myWriter = new FileWriter("customers.txt");
+				myWriter.write(customer);
+				myWriter.close();
+			} catch (IOException e) {
+				System.out.println("Error writing to the file");
+				e.printStackTrace();
+			}	
+		}
 			
 
 	}  // end the hotel system class
