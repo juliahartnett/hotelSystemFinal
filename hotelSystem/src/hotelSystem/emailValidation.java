@@ -7,35 +7,16 @@ public class emailValidation {
 
         Scanner scan = new Scanner(System.in);
         //validate the format of the email users entered
-        String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][com|org|net|edu|gov|co.uk]+)*$";
-        char emailFormat = 'n';
-        while(emailFormat !='y') {
-            System.out.println("Your Email address must contain '@'' and '.', the length before @ is 3-18 characters and cannot end with a dot. the domain have to be 'com, org, net, edu, gov and co.uk, no empty between dot and '@'' ");
-            email = scan.next();
-            if (email.matches(reg)){
-                emailFormat = 'y';
+        String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][com|org|net|edu|gov|co.uk])*$";
+        System.out.println("Enter your email address: ");
+		String s = scan.next();
+        if (s.matches(reg)) {
+            System.out.println("Congratulations, you have successfully registered.");
             }
-            //To the left of "@":
-            //Letters, numbers from 0 to 9, underscores
-            //minus sign, dot
-            //The length is 3 to 18 characters
-            //Cannot end with a dot, minus sign or underscore
-
-            //To the Right of "@":
-            //Letters, numbers from 0 to 9, underscores
-            //There can only be one dot, and there cannot be an empty space between the dot and "@"
-            //minus sign, dot
-            //Cannot end with a dot, minus sign or underscore
-        }
-    //char emailDomain = 'n';
-    //while(emailDomain !='y'){
-      //  System.out.println("Your email domain is no valied");
-        //email = scan.next();
-        //if(email.matches){
-
-        //}
-    //}
-
+            else {
+            System.out.println("FAILD, Your Email address must contain '@'' and '.', the length before @ is 3-18 characters and cannot end with a dot. the domain have to be 'com, org, net, edu, gov and co.uk, no empty between dot and '@''");
+            }
     return email;
     }
 }
+
