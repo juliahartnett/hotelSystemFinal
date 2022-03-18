@@ -10,7 +10,7 @@ public class emailValidation {
         String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][com|org|net|edu|gov|co.uk]+)*$";
         char emailFormat = 'n';
         while(emailFormat !='y') {
-            System.out.println("Your Email address must contain '@'' and '.' ");
+            System.out.println("Your Email address must contain '@'' and '.', the length before @ is 3-18 characters and cannot end with a dot. the domain have to be 'com, org, net, edu, gov and co.uk, no empty between dot and '@'' ");
             email = scan.next();
             if (email.matches(reg)){
                 emailFormat = 'y';
