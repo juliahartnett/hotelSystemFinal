@@ -14,7 +14,7 @@ public class emailValidation {
             System.out.println("Congratulations, you have successfully registered.");
             }
             else {
-            System.out.println("FAILD, Your Email address must contain '@'' and '.', the length before @ is 3-18 characters and cannot end with a dot. the domain have to be 'com, org, net, edu, gov and co.uk, no empty between dot and '@''");
+            System.out.println("FAILD, Your Email address must contain '@'' and '.', the length before @ is 3-18 characters and cannot end with a dot. The domain have to be 'com, org, net, edu, gov and co.uk, no empty between dot and '@''");
             }
     return email;
     }
