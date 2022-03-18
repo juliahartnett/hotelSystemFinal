@@ -7,7 +7,7 @@ public class emailValidation {
 
         Scanner scan = new Scanner(System.in);
         //validate the format of the email users entered
-        String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][A-Za-z0-9|com|org|net|edu|gov|co.uk]+)*$";
+        String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][com|org|net|edu|gov|co.uk]+)*$";
         char emailFormat = 'n';
         while(emailFormat !='y') {
             System.out.println("Your Email address must contain '@'' and '.' ");
