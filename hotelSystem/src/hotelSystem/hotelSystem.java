@@ -1,18 +1,22 @@
 package hotelSystem;
 import java.util.Scanner;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 	public class hotelSystem {
 		
 		public static char logInStat = 'F'; // made this a global variable to avoid some other annoying stuff
 		public static String currentUser = ""; // maybe add users email here?
 		
-		public static void main(String[] args) {
+		public static void main(String[] args) throws FileNotFoundException, IOException {
 			
 			// set some values
 			char kg = 'y'; // LCV
@@ -132,7 +136,7 @@ import java.io.IOException;
 			
 		}
 			
-		public static void makeReservation(String currentUser, HashMap<String, ArrayList<String>> customers, Scanner scan) {
+		public static void makeReservation(String currentUser, HashMap<String, ArrayList<String>> customers, Scanner scan) throws FileNotFoundException, IOException {
 
 			System.out.println("Would you like to make a reservation? Enter '1' if yes ");
 			int makeRes = scan.nextInt();
@@ -155,7 +159,7 @@ import java.io.IOException;
 						reservationSteps(customers, scan);
 					}
 					else if(c == 2) {
-						logIn(customers, scan);	
+						logIn(customers, scan);
 						if(logInStat == 'T') {
 						reservationSteps(customers, scan);
 						}
@@ -239,18 +243,7 @@ import java.io.IOException;
 			System.out.println("Enter your email address: ");
 			String email = scan.next();
 			
-			email = emailValidation.validateEmail(email);
-			
-			//if(email.contains("@") && email.contains(".")) { // checks for a valid email
-				//emailGood = 'y';
-			//}
-			//while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
-				//System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
-				//email = scan.next();
-				//if(email.contains("@") && email.contains(".")) {
-					//emailGood = 'y';
-				//}
-			//} // end validation loop		
+			email = emailValidation.validateEmail(email); // call the function from emailValidation to validate the emails
 			
 			if(customers.containsKey(email)) { // if there is already an account with this email
 				System.out.println("An account with this email already exists. Try logging in. ");
@@ -307,7 +300,7 @@ import java.io.IOException;
 		}
 		
 		
-		public static void logIn(HashMap<String, ArrayList<String>> customers, Scanner scan) {
+		public static void logIn(HashMap<String, ArrayList<String>> customers, Scanner scan) throws FileNotFoundException, IOException {
 			
 			if(logInStat == 'T') {
 				System.out.println("Account already logged in, log out to log in with a new account.\n");				
@@ -317,35 +310,41 @@ import java.io.IOException;
 				System.out.println("Enter your email: "); // ask the user for their email
 				String email = scan.next();
 				
-				if(customers.containsKey(email)) {
-					// key is in the map, so ask for the password
-					System.out.println("Enter your password: ");
-					String password = scan.next();
-					if(password.equals(customers.get(email).get(0))) {
-						currentUser = email;
-						// if the passwords are equal, then log in is successful
-						String name = customers.get(email).get(1);
-						System.out.println("Welcome, " + name); // print a welcome message
-						logInStat = 'T'; // change the log in stat to T
-						
-					} // end if statement
-					else {
-						System.out.println("Incorrect password. Returning to main menu.");
-					}
-						
-					
-				} // end if
-				else {// if the account does not exist, then print a message
-					
-					System.out.println("Account with that email not found. ");
-					
-				} // end else
-					
+				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
+					String line;
+					char foundEmail = 'n';
+					while((line = br.readLine()) != null || foundEmail != 'y') {
+						//System.out.println(line);
+						if(line.contains(email)) {
+							foundEmail = 'y' ;
+							 // if the email address is in the row then check for the password
+							 System.out.println("Enter your password: ");
+							 String password = scan.next();
+							 if(line.contains(password)) {
+								 // if the row contains the password then sign the user in
+								 currentUser = email;
+								 logInStat = 'T'; // change the logInStat to T
+								 String [] arrayOfCustomer = line.split(" ",8 );
+								 String name = arrayOfCustomer[2]; // get the customers name
+								 System.out.println("Welcome, " + name); // print a welcome message								
+							 }
+							 else {
+								 // row does not contain password
+								 System.out.println("Password does not match");								 
+							 }							 
+						 } // end if row contains email
+					}// end the while loop
+	
+												
+				}// end try 
+				catch(Exception e) {
+					System.out.println("No account with that email found");	
+				} // end catch
 			} // end else
 			
 			
 		} // end logIn function
-		
+							
 			
 		public static void contactUs() {
 				// print out the contact info for the hotel
@@ -370,10 +369,10 @@ import java.io.IOException;
 			try {
 				File myObj = new File("customers.txt");
 				if (myObj.createNewFile()) {
-					System.out.println("File created");
+					//System.out.println("File created");
 				}
 				else {
-					System.out.println("File already exists");
+					//System.out.println("File already exists");
 				}	
 			} catch (IOException e) {
 				System.out.println("Error creating the file");
@@ -385,7 +384,7 @@ import java.io.IOException;
 		public static void writeToFile(String email, String password, String firstName, String lastName, String country, String zipCode, String phoneNumber) {
 			try {
 				String customer = email + " " +  password  + " " + firstName + " " + lastName + " " + country + " " + zipCode + " " + phoneNumber + "\n";
-				FileWriter myWriter = new FileWriter("customers.txt");
+				FileWriter myWriter = new FileWriter("customers.txt", true);
 				myWriter.write(customer);
 				myWriter.close();
 			} catch (IOException e) {
