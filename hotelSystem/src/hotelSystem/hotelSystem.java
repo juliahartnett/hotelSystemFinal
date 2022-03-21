@@ -196,10 +196,16 @@ import java.nio.file.Paths;
 						
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
+
 						System.out.println("Enter the check in time: ");
 						String checkin = scan.next();
+						checkin = validation.validateCheckin(checkin);
+
 						System.out.println("Enter the check out time: ");
 						String checkout = scan.next();
+						checkout = validation.validateCheckout(checkout);
+
+
 						System.out.println("Select a room type: ");
 						System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 						
