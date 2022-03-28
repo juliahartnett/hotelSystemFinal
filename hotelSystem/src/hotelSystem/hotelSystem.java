@@ -20,18 +20,6 @@ import java.nio.file.Paths;
 			
 			// set some values
 			char kg = 'y'; // LCV
-
-			// create a hashmap of some users that exist so the log in function can be used
-			// K: email, V: [password, first name, last name, country, zip code, phone number]
-			HashMap<String, ArrayList<String>> customers = new HashMap<String, ArrayList<String>>();
-			ArrayList<String> person1 = new ArrayList<String> ();
-			person1.add("john1988?"); // add password
-			person1.add("John"); // add first name
-			person1.add("Coney"); // add last name
-			person1.add("USA"); // add country
-			person1.add("75204"); // add zip code
-			person1.add("972964087"); // add phone number
-			customers.put("john.coney@fakeperson.com", person1);
 			
 			// print welcome statement
 			System.out.println("Welcome to the Halien Hotel!\n");
@@ -54,7 +42,7 @@ import java.nio.file.Paths;
 				} // end else if
 					
 				else if(choice == 3) {
-					makeReservation(currentUser, customers, scan);		
+					makeReservation(currentUser, scan);		
 				} // end else if
 					
 				else if(choice == 4) {
@@ -62,10 +50,10 @@ import java.nio.file.Paths;
 					System.out.println("Would you like to 1. Create an account or 2. Sign in to an existing account? ");
 					int c = scan.nextInt();
 					if(c == 1) {
-						customers = createAccount(customers, scan);
+						createAccount(scan);
 					}
 					else if(c == 2) {
-						logIn(customers, scan);
+						logIn(scan);
 					}
 					else {
 						System.out.println("This was not a valid option. Returning to main menu.\n");
@@ -109,19 +97,23 @@ import java.nio.file.Paths;
 		} // end see rooms function
 		
 		
-		public static void reservationSteps(HashMap<String, ArrayList<String>> customers, Scanner scan) {
+		public static void reservationSteps(Scanner scan) {
 			// once the customers info is in and they want to make a reservation
 			// moved to its own function bc otherwise i'd be copying this 3x
 
-			ArrayList<String> cust = customers.get(currentUser);
+			//ArrayList<String> cust = customers.get(currentUser);
+			// write the version of this that gets it from the file
+			
 			System.out.println("To complete your Reservation: ");
 			
 			System.out.println("Enter the number of occupants: ");
 			int numPeople = scan.nextInt();
 			System.out.println("Enter the check in time: ");
 			String checkin = scan.next();
+			checkin = validation.validateCheckin(checkin);
 			System.out.println("Enter the check out time: ");
 			String checkout = scan.next();
+			checkout = validation.validateCheckout(checkout);
 			System.out.println("Select a room type: ");
 			System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 			
@@ -136,7 +128,7 @@ import java.nio.file.Paths;
 			
 		}
 			
-		public static void makeReservation(String currentUser, HashMap<String, ArrayList<String>> customers, Scanner scan) throws FileNotFoundException, IOException {
+		public static void makeReservation(String currentUser, Scanner scan) throws FileNotFoundException, IOException {
 
 			System.out.println("Would you like to make a reservation? Enter '1' if yes ");
 			int makeRes = scan.nextInt();
@@ -145,7 +137,7 @@ import java.nio.file.Paths;
 				// what happens when they want to make a reservation
 				// check to see if the guest is logged in
 				if(logInStat == 'T') {
-					reservationSteps(customers, scan);
+					reservationSteps(scan);
 						
 				} // end the logInStat T if statement
 					
@@ -154,14 +146,14 @@ import java.nio.file.Paths;
 					System.out.println("Would you like to 1. Create an account 2. Sign in to an existing account or 3. Continue as a guest");
 					int c = scan.nextInt();
 					if(c == 1) {
-						customers = createAccount(customers, scan); // create an account
-						logIn(customers, scan); // sign in to account
-						reservationSteps(customers, scan);
+						createAccount(scan); // create an account
+						logIn(scan); // sign in to account
+						reservationSteps(scan);
 					}
 					else if(c == 2) {
-						logIn(customers, scan);
+						logIn(scan);
 						if(logInStat == 'T') {
-						reservationSteps(customers, scan);
+						reservationSteps(scan);
 						}
 
 					}
@@ -171,17 +163,7 @@ import java.nio.file.Paths;
 						String email = scan.next();
 						
 						email = emailValidation.validateEmail(email);
-						//char emailGood = 'n';
-											
-						//if(email.contains("@") && email.contains(".")) { // checks for a valid email
-							//emailGood = 'y';
-						//}
-						//while(emailGood != 'y') { // loop for getting a new email if the one entered is bad
-							//System.out.println("This is not a valid email! Email must contain '@' and '.'.\nEnter new email: ");
-							//email = scan.next();
-							//if(email.contains("@") && email.contains(".")) {
-								//emailGood = 'y';
-							//}
+
 						//} // end validation loop
 						System.out.println("Enter your first name: ");
 						String firstName = scan.next();
@@ -233,17 +215,13 @@ import java.nio.file.Paths;
 				} // end the function
 
 		
-		public static HashMap<String, ArrayList<String>> createAccount(HashMap<String, ArrayList<String>> customers, Scanner scan) {
+		public static void createAccount(Scanner scan) {
 			System.out.println("Having an account at our hotel makes check-in more efficient. Also, \r\n"
 					+ "- Guests and hotel staff can avoid close-contact interactions.\r\n"
 					+ "- Hotels can collect all necessary information from guests.\r\n"
 					+ "- Employees can use their time more effectively.\r\n"
 					+ "- Guests can get to their rooms as soon as possible.\r\n"
 					+ "");
-			
-			// get info about the user, store in an array stored as the value of a hashmap
-			
-			ArrayList<String> person = new ArrayList<String>();
 
 			//char emailGood = 'n';
 			System.out.println("Enter your email address: ");
@@ -251,36 +229,24 @@ import java.nio.file.Paths;
 			
 			email = emailValidation.validateEmail(email); // call the function from emailValidation to validate the emails
 			
-			if(customers.containsKey(email)) { // if there is already an account with this email
-				System.out.println("An account with this email already exists. Try logging in. ");
-				scan.close();
-				return(customers);
-			}
-			
+			// check to see that there is not an account with that email
+		
 			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
 			String password = scan.next();
 
 			password = validation.validatePasswords(password);
-
-			person.add(password);
 					
 			System.out.println("Enter your first name: ");
 			String firstName = scan.next();
-			person.add(firstName);
 			System.out.println("Enter your last name: ");
 			String lastName = scan.next();
-			person.add(lastName);
 			System.out.println("Enter your country: ");
 			String country = scan.next();
-			person.add(country);
 			System.out.println("Enter your zip/postal code: ");
 			String zipCode = scan.next();
-			person.add(zipCode);
 			System.out.println("Enter your phone number: ");
 			String phoneNumber = scan.next();
-			person.add(phoneNumber);
-			
-			customers.put(email, person); // add the persons info to the hashmap
+	
 			
 			
 			// write the users data to the file
@@ -302,11 +268,10 @@ import java.nio.file.Paths;
 			
 			System.out.println("Account created. Please sign in.");
 
-			return(customers); // return the hashmap of customers
 		}
 		
 		
-		public static void logIn(HashMap<String, ArrayList<String>> customers, Scanner scan) throws FileNotFoundException, IOException {
+		public static void logIn(Scanner scan) throws FileNotFoundException, IOException {
 			
 			if(logInStat == 'T') {
 				System.out.println("Account already logged in, log out to log in with a new account.\n");				
