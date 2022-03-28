@@ -2,11 +2,12 @@ package hotelSystem;
 import java.util.Scanner;
 public class emailValidation {
     public static void main(String[] args){
+  
             
     } 
-    public static String validateEmail(String email){
+    public static String validateEmail(String email, Scanner scan){
 
-        Scanner scan = new Scanner(System.in);
+        //Scanner scan = new Scanner(System.in);
         //validate the format of the email users entered
         String reg = "^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][com|org|net|edu|gov|co.uk])*$";
         //System.out.println("Enter your email address: ");

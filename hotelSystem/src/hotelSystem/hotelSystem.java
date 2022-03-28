@@ -110,10 +110,10 @@ import java.nio.file.Paths;
 			int numPeople = scan.nextInt();
 			System.out.println("Enter the check in time: ");
 			String checkin = scan.next();
-			checkin = validation.validateCheckin(checkin);
+			checkin = validation.validateCheckin(checkin, scan);
 			System.out.println("Enter the check out time: ");
 			String checkout = scan.next();
-			checkout = validation.validateCheckout(checkout);
+			checkout = validation.validateCheckout(checkout, scan);
 			System.out.println("Select a room type: ");
 			System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 			
@@ -162,7 +162,7 @@ import java.nio.file.Paths;
 						System.out.println("Enter your email: ");
 						String email = scan.next();
 						
-						email = emailValidation.validateEmail(email);
+						email = emailValidation.validateEmail(email, scan);
 
 						//} // end validation loop
 						System.out.println("Enter your first name: ");
@@ -181,11 +181,11 @@ import java.nio.file.Paths;
 
 						System.out.println("Enter the check in time: ");
 						String checkin = scan.next();
-						checkin = validation.validateCheckin(checkin);
+						checkin = validation.validateCheckin(checkin, scan);
 
 						System.out.println("Enter the check out time: ");
 						String checkout = scan.next();
-						checkout = validation.validateCheckout(checkout);
+						checkout = validation.validateCheckout(checkout, scan);
 
 
 						System.out.println("Select a room type: ");
@@ -227,14 +227,14 @@ import java.nio.file.Paths;
 			System.out.println("Enter your email address: ");
 			String email = scan.next();
 			
-			email = emailValidation.validateEmail(email); // call the function from emailValidation to validate the emails
+			email = emailValidation.validateEmail(email, scan); // call the function from emailValidation to validate the emails
 			
 			// check to see that there is not an account with that email
 		
 			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
 			String password = scan.next();
 
-			password = validation.validatePasswords(password);
+			password = validation.validatePasswords(password, scan);
 					
 			System.out.println("Enter your first name: ");
 			String firstName = scan.next();
