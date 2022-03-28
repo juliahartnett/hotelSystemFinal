@@ -4,11 +4,13 @@ import java.util.Scanner;
 public class validation {
 
 	public static void main(String[] args) {
+	
 		
 	}
-	public static String validateCheckin (String checkin){
+	
+	public static String validateCheckin (String checkin, Scanner scan){
 
-        Scanner scan = new Scanner(System.in);
+
         //validate check in time
 		String checkinReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkinTime = 'n';
@@ -23,8 +25,8 @@ public class validation {
         return checkin;
     }
     
-    public static String validateCheckout (String checkout){
-        Scanner scan = new Scanner(System.in);
+    public static String validateCheckout (String checkout, Scanner scan){
+ 
         //validate check out time
         String checkoutReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkoutTime = 'n';
@@ -39,9 +41,10 @@ public class validation {
     //end validation loop
     return checkout;
 }
-	public static String validatePasswords(String password){
-		
 	
+	public static String validatePasswords(String password, Scanner scan){
+		
+		
         // validate length of password is >= 8 characters
         char passShort = 'n';       
         if(password.length() >= 8) {
@@ -112,3 +115,4 @@ public class validation {
     }
 
 }
+
