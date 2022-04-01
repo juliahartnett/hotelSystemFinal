@@ -1,5 +1,6 @@
 package hotelSystem;
 import java.util.Scanner;
+
 public class emailValidation {
     public static void main(String[] args){
   
@@ -26,4 +27,51 @@ public class emailValidation {
         }
     return email;
     }
+	public static int numPeopleValidation(int numPeople, Scanner scan, char roomType) {
+		char roomA = 'n';
+		char roomB = 'n';
+		char roomC = 'n';
+		char roomD = 'n';
+		char roomE = 'n';
+		char roomF = 'n';
+		
+
+		if (roomType == 'a' && numPeople != 1) {
+			System.out.println("Twin sized bed is only for 1 people.");
+		}
+		else {
+			roomA = 'y';
+		}
+		if (roomType =='b' && numPeople <= 2 && numPeople != 0) {
+			System.out.println("1 Queen sized bed is for 1-2 people.");
+		}
+		else {
+			roomB = 'y';
+		}
+		if (roomType == 'c' && numPeople <= 2 && numPeople != 0) {
+			System.out.println("1 King sized bed is for 1-2 people.");
+		}
+		else {
+			roomC = 'y';
+		}
+		if (roomType =='d' && numPeople >= 2 && numPeople <= 4) {
+			System.out.println("2 Queen sized bed is for 2-4 people.");
+		}
+		else {
+			roomD = 'y';
+		}
+		if (roomType =='e' && numPeople >= 2 && numPeople <= 4) {
+			System.out.println("King & Queen bed is for 2-4 people.");
+		}
+		else {
+			roomE = 'y';
+		}
+		if (roomType =='f' && numPeople >= 2 && numPeople <= 4) {
+			System.out.println(" 2 King sized bed is for 2-4 people.");
+		}
+		else {
+			roomF = 'y';
+			}
+	return numPeople;
+}
 }
