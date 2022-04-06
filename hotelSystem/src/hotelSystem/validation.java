@@ -1,3 +1,4 @@
+
 package hotelSystem;
 import java.util.Scanner;
 
@@ -14,6 +15,9 @@ public class validation {
         //validate check in time
 		String checkinReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkinTime = 'n';
+        if (checkin.matches(checkinReg)){
+            checkinTime = 'y';
+        }
         while(checkinTime != 'y') {
             System.out.println("Your check in time is invalid. Please try again: ");
             checkin = scan.next();
@@ -30,6 +34,9 @@ public class validation {
         //validate check out time
         String checkoutReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkoutTime = 'n';
+        if (checkout.matches(checkoutReg)){
+            checkoutTime = 'y';
+        }
         while(checkoutTime != 'y') {
             System.out.println("Your check out time is invalid. Please try again: ");
             checkout = scan.next();
@@ -113,6 +120,8 @@ public class validation {
     } // end validation loop     
         return password;
     }
+
+}
 
 }
 
