@@ -19,7 +19,7 @@ public class validation {
             checkinTime = 'y';
         }
         while(checkinTime != 'y') {
-            System.out.println("Your check in time is invalid. Please try again: ");
+            System.out.println("Your check in time is invalid. Remember, your check-in time must be in the military (24 hour) format. Please try again: ");
             checkin = scan.next();
             if (checkin.matches(checkinReg)){
                 checkinTime = 'y';
@@ -38,7 +38,7 @@ public class validation {
             checkoutTime = 'y';
         }
         while(checkoutTime != 'y') {
-            System.out.println("Your check out time is invalid. Please try again: ");
+            System.out.println("Your check out time is invalid. Remember, your check-out time must be in the military (24 hour) format. Please try again: ");
             checkout = scan.next();
             if (checkout.matches(checkoutReg)){
                 checkoutTime = 'y';
