@@ -174,7 +174,9 @@ import java.nio.file.Paths;
 						System.out.println("Enter your zip code: ");
 						String zipCode = scan.next();
 						System.out.println("Enter your phone number: ");
-						String phoneNumber = scan.next();	
+						String phoneNumber = scan.next();
+						
+						phoneNumber = validation.validatePhone(phoneNumber, scan);
 						
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
