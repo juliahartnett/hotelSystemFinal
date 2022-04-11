@@ -246,6 +246,8 @@ import java.nio.file.Paths;
 			String zipCode = scan.next();
 			System.out.println("Enter your phone number: ");
 			String phoneNumber = scan.next();
+			
+			phoneNumber = validation.validatePhone(phoneNumber, scan);
 	
 			
 			
