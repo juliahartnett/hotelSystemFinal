@@ -1,25 +1,20 @@
-
 package hotelSystem;
 import java.util.Scanner;
 
 public class validation {
 
 	public static void main(String[] args) {
-	
 		
 	}
-	
-	public static String validateCheckin (String checkin, Scanner scan){
 
+    public static String validateCheckin (String checkin){
 
+        Scanner scan = new Scanner(System.in);
         //validate check in time
 		String checkinReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkinTime = 'n';
-        if (checkin.matches(checkinReg)){
-            checkinTime = 'y';
-        }
         while(checkinTime != 'y') {
-            System.out.println("Your check in time is invalid. Remember, your check-in time must be in the military (24 hour) format. Please try again: ");
+            System.out.println("Your check in time is invalid. Please try again: ");
             checkin = scan.next();
             if (checkin.matches(checkinReg)){
                 checkinTime = 'y';
@@ -29,16 +24,13 @@ public class validation {
         return checkin;
     }
     
-    public static String validateCheckout (String checkout, Scanner scan){
- 
+    public static String validateCheckout (String checkout){
+        Scanner scan = new Scanner(System.in);
         //validate check out time
         String checkoutReg = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         char checkoutTime = 'n';
-        if (checkout.matches(checkoutReg)){
-            checkoutTime = 'y';
-        }
         while(checkoutTime != 'y') {
-            System.out.println("Your check out time is invalid. Remember, your check-out time must be in the military (24 hour) format. Please try again: ");
+            System.out.println("Your check out time is invalid. Please try again: ");
             checkout = scan.next();
             if (checkout.matches(checkoutReg)){
                 checkoutTime = 'y';
@@ -49,7 +41,9 @@ public class validation {
     return checkout;
 }
 	
-	public static String validatePasswords(String password, Scanner scan){
+	public static String validatePasswords(String password){
+		
+		Scanner scan = new Scanner(System.in);
 		
 		
         // validate length of password is >= 8 characters
