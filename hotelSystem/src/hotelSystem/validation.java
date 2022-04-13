@@ -6,7 +6,22 @@ public class validation {
 	public static void main(String[] args) {
 		
 	}
-
+	
+       public static String validatePhone (String phoneNumber, Scanner scan){
+        String phoneReg = "(0/91)?[7-9][0-9]{9}";
+        char phoneGood = 'n';
+        while (phoneGood == 'n'){
+            if (phoneNumber.matches(phoneReg)){
+                phoneGood = 'y';
+            }
+            else {
+                System.out.println("Your phone number is invalid. Remember to include both your 3-digit area code and your 7-digit phone number. Please try again: ");
+                phoneNumber = scan.next();
+            }
+        }
+        return phoneNumber;
+    }
+	
     public static String validateCheckin (String checkin){
 
         Scanner scan = new Scanner(System.in);
