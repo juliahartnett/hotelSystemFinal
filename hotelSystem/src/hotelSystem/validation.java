@@ -8,7 +8,7 @@ public class validation {
 	}
 	
        public static String validatePhone (String phoneNumber, Scanner scan){
-        String phoneReg = "(0/91)?[7-9][0-9]{9}";
+        String phoneReg = "^\\d{10}$";
         char phoneGood = 'n';
         while (phoneGood == 'n'){
             if (phoneNumber.matches(phoneReg)){
