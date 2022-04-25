@@ -10,12 +10,11 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Date;
 
 	public class hotelSystem {
 		
-		public static char logInStat = 'F';
-		public static String currentUser = "";
+		public static char logInStat = 'F'; // made this a global variable to avoid some other annoying stuff
+		public static String currentUser = ""; // maybe add users email here?
 		
 		public static void main(String[] args) throws FileNotFoundException, IOException {
 			
@@ -28,7 +27,7 @@ import java.util.Date;
 			while(kg == 'y') {
 				System.out.println("What would you like to do? ");
 				// print the list of things to do
-				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Leave a Review\n8. Quit");
+				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Quit");
 					
 				// get user input
 				Scanner scan = new Scanner(System.in); // creates a Scanner object that reads from the keyboard
@@ -71,11 +70,6 @@ import java.util.Date;
 				}
 					
 				else if(choice == 7) {
-					feedback(scan);
-				}
-				
-				else if(choice == 8) {
-					
 					System.out.println("Thank you for visiting the Halien Hotel! We hope to see you soon!");
 					kg = 'n';	
 					scan.close();
@@ -105,7 +99,9 @@ import java.util.Date;
 		
 		public static void reservationSteps(Scanner scan) {
 			// once the customers info is in and they want to make a reservation
+			// moved to its own function bc otherwise i'd be copying this 3x
 
+			//ArrayList<String> cust = customers.get(currentUser);
 			// write the version of this that gets it from the file
 			
 			System.out.println("To complete your Reservation: ");
@@ -178,9 +174,7 @@ import java.util.Date;
 						System.out.println("Enter your zip code: ");
 						String zipCode = scan.next();
 						System.out.println("Enter your phone number: ");
-						String phoneNumber = scan.next();
-						
-						phoneNumber = validation.validatePhone(phoneNumber, scan);
+						String phoneNumber = scan.next();	
 						
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
@@ -221,21 +215,13 @@ import java.util.Date;
 				} // end the function
 
 		
-		public static void createAccount(Scanner scan) throws FileNotFoundException, IOException {
+		public static void createAccount(Scanner scan) {
 			System.out.println("Having an account at our hotel makes check-in more efficient. Also, \r\n"
 					+ "- Guests and hotel staff can avoid close-contact interactions.\r\n"
 					+ "- Hotels can collect all necessary information from guests.\r\n"
 					+ "- Employees can use their time more effectively.\r\n"
 					+ "- Guests can get to their rooms as soon as possible.\r\n"
 					+ "");
-			
-			// write the users data to the file
-			try {
-				createFile();
-				
-			}catch(Exception e) {
-				System.out.println("Error creating file");
-			}
 
 			//char emailGood = 'n';
 			System.out.println("Enter your email address: ");
@@ -244,65 +230,45 @@ import java.util.Date;
 			email = emailValidation.validateEmail(email, scan); // call the function from emailValidation to validate the emails
 			
 			// check to see that there is not an account with that email
-			
-			
-			
-			// need to read in the file and then iterate over it, and see if the email is in the file at all
-			
-			char foundEmail = 'n';
-			try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
-				for(String line = br.readLine(); line != null; line = br.readLine()) {
-					if (line.contains(email)) {
-						foundEmail = 'y';
-						
-					}// end if
-					
-					
-				}// end for
-			
-			
-			}catch(Exception e){
-				System.out.println("No file to search");
-				
-			}// end try
-			
-			if(foundEmail == 'n') {
-				System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
-				String password = scan.next();
+		
+			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
+			String password = scan.next();
 
-				password = validation.validatePasswords(password, scan);
-						
-				System.out.println("Enter your first name: ");
-				String firstName = scan.next();
-				System.out.println("Enter your last name: ");
-				String lastName = scan.next();
-				System.out.println("Enter your country: ");
-				String country = scan.next();
-				System.out.println("Enter your zip/postal code: ");
-				String zipCode = scan.next();
-				System.out.println("Enter your phone number: ");
-				String phoneNumber = scan.next();
-				
-				phoneNumber = validation.validatePhone(phoneNumber, scan);
-								
-				
-				try {
-					writeToFile(email, password, firstName, lastName, country, zipCode, phoneNumber);
+			password = validation.validatePasswords(password, scan);
 					
-				}catch(Exception e) {
-					System.out.println("Error writing user data to file");
-				}
-				
-				System.out.println("Account created. Please sign in.");				
-				
-			} // end if
+			System.out.println("Enter your first name: ");
+			String firstName = scan.next();
+			System.out.println("Enter your last name: ");
+			String lastName = scan.next();
+			System.out.println("Enter your country: ");
+			String country = scan.next();
+			System.out.println("Enter your zip/postal code: ");
+			String zipCode = scan.next();
+			System.out.println("Enter your phone number: ");
+			String phoneNumber = scan.next();
+	
 			
-			else {
-				
-				System.out.println("An account with that email address already exists. Try again with a new email address. ");
-			}// end else
 			
-		} // end function
+			// write the users data to the file
+			try {
+				createFile();
+				
+			}catch(Exception e) {
+				System.out.println("Error creating file");
+			}
+			
+			
+			
+			try {
+				writeToFile(email, password, firstName, lastName, country, zipCode, phoneNumber);
+				
+			}catch(Exception e) {
+				System.out.println("Error writing user data to file");
+			}
+			
+			System.out.println("Account created. Please sign in.");
+
+		}
 		
 		
 		public static void logIn(Scanner scan) throws FileNotFoundException, IOException {
@@ -315,52 +281,40 @@ import java.util.Date;
 				System.out.println("Enter your email: "); // ask the user for their email
 				String email = scan.next();
 				
-				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
-					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						if (line.contains(email)) {
-							foundEmail = 'y';
-							
-						}// end if
-						
-						
-					}// end for
-				
-				
-				}catch(Exception e){
-					System.out.println("No file to search");
-					
-				}// end try
-				
-				//////////// CURRENT BUG: says julia is a valid account email when no account with that email exists
-				
-				
-				if(foundEmail == 'y') {
-					System.out.println("Enter your password: ");
-					String password = scan.next();
-					BufferedReader br = new BufferedReader(new FileReader("customers.txt"));
-					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						if (line.contains(password)) {
-							currentUser = email;
-							 logInStat = 'T'; // change the logInStat to T
-							 String [] arrayOfCustomer = line.split(" ",8 );
-							 String name = arrayOfCustomer[2]; // get the customers name
-							 System.out.println("Welcome, " + name); // print a welcome message	
-						}// end if 
-						else {
-							// row does not contain password
-						
+					String line;
+					char foundEmail = 'n';
+					while((line = br.readLine()) != null || foundEmail != 'y') {
+						//System.out.println(line);
+						if(line.contains(email)) {
+							foundEmail = 'y' ;
+							 // if the email address is in the row then check for the password
+							 System.out.println("Enter your password: ");
+							 String password = scan.next();
+							 if(line.contains(password)) {
+								 // if the row contains the password then sign the user in
+								 currentUser = email;
+								 logInStat = 'T'; // change the logInStat to T
+								 String [] arrayOfCustomer = line.split(" ",8 );
+								 String name = arrayOfCustomer[2]; // get the customers name
+								 System.out.println("Welcome, " + name); // print a welcome message								
+							 }
+							 else {
+								 // row does not contain password
 								 System.out.println("Password does not match");								 
-							 }// end else
-							
-						} // end for
-				}// end if
-					 else {
-						 System.out.println("Email does not belong to an account");							 
-					 }	
-			}
-		
-			} // end logIn function
+							 }							 
+						 } // end if row contains email
+					}// end the while loop
+	
+												
+				}// end try 
+				catch(Exception e) {
+					System.out.println("No account with that email found");	
+				} // end catch
+			} // end else
+			
+			
+		} // end logIn function
 							
 			
 		public static void contactUs() {
@@ -381,26 +335,6 @@ import java.util.Date;
 			}			
 			
 		} // end signOut function
-		
-		
-		public static void feedback(Scanner scan) {
-			Date date = new Date();
-			System.out.println("Title:");
-			scan.nextLine();
-			String title = scan.nextLine();
-
-			
-			System.out.println("Please rate our service(enter a number between 1-5): ");
-			int rate = scan.nextInt();
-			
-			System.out.println("Comment: ");
-			scan.nextLine();
-			String comment = scan.nextLine();
-			
-			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+"\n"+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
-			}
-			
-
 		
 		public static void createFile() {
 			try {
