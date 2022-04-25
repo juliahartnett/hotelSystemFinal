@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Date;
 
 	public class hotelSystem {
 		
@@ -27,8 +28,7 @@ import java.nio.file.Paths;
 			while(kg == 'y') {
 				System.out.println("What would you like to do? ");
 				// print the list of things to do
-				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Quit");
-					
+				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Feedback\n8. Quit");					
 				// get user input
 				Scanner scan = new Scanner(System.in); // creates a Scanner object that reads from the keyboard
 				int choice = scan.nextInt();
@@ -68,8 +68,12 @@ import java.nio.file.Paths;
 				else if(choice == 6) {
 					signOut();
 				}
-					
+				
 				else if(choice == 7) {
+					feedback(scan);
+				}
+					
+				else if(choice == 8) {
 					System.out.println("Thank you for visiting the Halien Hotel! We hope to see you soon!");
 					kg = 'n';	
 					scan.close();
@@ -360,7 +364,23 @@ import java.nio.file.Paths;
 			else {
 				logInStat = 'F';
 				System.out.println("Account successfully logged out.\n");	
-			}			
+			}
+			
+		public static void feedback(Scanner scan) {
+			Date date = new Date();
+			System.out.println("Title:");
+			scan.nextLine();
+			String title = scan.nextLine();
+
+			
+			System.out.println("Please rate our service(enter a number between 1-5): ");
+			int rate = scan.nextInt();
+			
+			System.out.println("Comment: ");
+			String comment = scan.next();
+			
+			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
+			}
 			
 		} // end signOut function
 		
