@@ -394,9 +394,10 @@ import java.util.Date;
 			int rate = scan.nextInt();
 			
 			System.out.println("Comment: ");
-			String comment = scan.next();
+			scan.nextLine();
+			String comment = scan.nextLine();
 			
-			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
+			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+"\n"+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
 			}
 			
 
