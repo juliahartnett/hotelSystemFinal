@@ -28,7 +28,8 @@ import java.util.Date;
 			while(kg == 'y') {
 				System.out.println("What would you like to do? ");
 				// print the list of things to do
-				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Feedback\n8. Quit");					
+				System.out.println("1. Our Story\n2. See Room Types\n3. Make a Reservation\n4. Create or Sign In to an Account\n5. Contact Us\n6. Log Out of an Account\n7. Leave a Review\n8. Quit");
+					
 				// get user input
 				Scanner scan = new Scanner(System.in); // creates a Scanner object that reads from the keyboard
 				int choice = scan.nextInt();
@@ -68,12 +69,13 @@ import java.util.Date;
 				else if(choice == 6) {
 					signOut();
 				}
-				
+					
 				else if(choice == 7) {
 					feedback(scan);
 				}
-					
+				
 				else if(choice == 8) {
+					
 					System.out.println("Thank you for visiting the Halien Hotel! We hope to see you soon!");
 					kg = 'n';	
 					scan.close();
@@ -313,40 +315,52 @@ import java.util.Date;
 				System.out.println("Enter your email: "); // ask the user for their email
 				String email = scan.next();
 				
+				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
-					String line;
-					char foundEmail = 'n';
-					while((line = br.readLine()) != null || foundEmail != 'y') {
-						//System.out.println(line);
-						if(line.contains(email)) {
-							foundEmail = 'y' ;
-							 // if the email address is in the row then check for the password
-							 System.out.println("Enter your password: ");
-							 String password = scan.next();
-							 if(line.contains(password)) {
-								 // if the row contains the password then sign the user in
-								 currentUser = email;
-								 logInStat = 'T'; // change the logInStat to T
-								 String [] arrayOfCustomer = line.split(" ",8 );
-								 String name = arrayOfCustomer[2]; // get the customers name
-								 System.out.println("Welcome, " + name); // print a welcome message								
-							 }
-							 else {
-								 // row does not contain password
+					for(String line = br.readLine(); line != null; line = br.readLine()) {
+						if (line.contains(email)) {
+							foundEmail = 'y';
+							
+						}// end if
+						
+						
+					}// end for
+				
+				
+				}catch(Exception e){
+					System.out.println("No file to search");
+					
+				}// end try
+				
+				//////////// CURRENT BUG: says julia is a valid account email when no account with that email exists
+				
+				
+				if(foundEmail == 'y') {
+					System.out.println("Enter your password: ");
+					String password = scan.next();
+					BufferedReader br = new BufferedReader(new FileReader("customers.txt"));
+					for(String line = br.readLine(); line != null; line = br.readLine()) {
+						if (line.contains(password)) {
+							currentUser = email;
+							 logInStat = 'T'; // change the logInStat to T
+							 String [] arrayOfCustomer = line.split(" ",8 );
+							 String name = arrayOfCustomer[2]; // get the customers name
+							 System.out.println("Welcome, " + name); // print a welcome message	
+						}// end if 
+						else {
+							// row does not contain password
+						
 								 System.out.println("Password does not match");								 
-							 }							 
-						 } // end if row contains email
-					}// end the while loop
-	
-												
-				}// end try 
-				catch(Exception e) {
-					System.out.println("No account with that email found");	
-				} // end catch
-			} // end else
-			
-			
-		} // end logIn function
+							 }// end else
+							
+						} // end for
+				}// end if
+					 else {
+						 System.out.println("Email does not belong to an account");							 
+					 }	
+			}
+		
+			} // end logIn function
 							
 			
 		public static void contactUs() {
@@ -364,8 +378,11 @@ import java.util.Date;
 			else {
 				logInStat = 'F';
 				System.out.println("Account successfully logged out.\n");	
-			}
+			}			
 			
+		} // end signOut function
+		
+		
 		public static void feedback(Scanner scan) {
 			Date date = new Date();
 			System.out.println("Title:");
@@ -382,7 +399,7 @@ import java.util.Date;
 			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
 			}
 			
-		} // end signOut function
+
 		
 		public static void createFile() {
 			try {
