@@ -13,8 +13,8 @@ import java.nio.file.Paths;
 
 	public class hotelSystem {
 		
-		public static char logInStat = 'F'; // made this a global variable to avoid some other annoying stuff
-		public static String currentUser = ""; // maybe add users email here?
+		public static char logInStat = 'F';
+		public static String currentUser = "";
 		
 		public static void main(String[] args) throws FileNotFoundException, IOException {
 			
@@ -99,9 +99,7 @@ import java.nio.file.Paths;
 		
 		public static void reservationSteps(Scanner scan) {
 			// once the customers info is in and they want to make a reservation
-			// moved to its own function bc otherwise i'd be copying this 3x
 
-			//ArrayList<String> cust = customers.get(currentUser);
 			// write the version of this that gets it from the file
 			
 			System.out.println("To complete your Reservation: ");
@@ -217,41 +215,13 @@ import java.nio.file.Paths;
 				} // end the function
 
 		
-		public static void createAccount(Scanner scan) {
+		public static void createAccount(Scanner scan) throws FileNotFoundException, IOException {
 			System.out.println("Having an account at our hotel makes check-in more efficient. Also, \r\n"
 					+ "- Guests and hotel staff can avoid close-contact interactions.\r\n"
 					+ "- Hotels can collect all necessary information from guests.\r\n"
 					+ "- Employees can use their time more effectively.\r\n"
 					+ "- Guests can get to their rooms as soon as possible.\r\n"
 					+ "");
-
-			//char emailGood = 'n';
-			System.out.println("Enter your email address: ");
-			String email = scan.next();
-			
-			email = emailValidation.validateEmail(email, scan); // call the function from emailValidation to validate the emails
-			
-			// check to see that there is not an account with that email
-		
-			System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
-			String password = scan.next();
-
-			password = validation.validatePasswords(password, scan);
-					
-			System.out.println("Enter your first name: ");
-			String firstName = scan.next();
-			System.out.println("Enter your last name: ");
-			String lastName = scan.next();
-			System.out.println("Enter your country: ");
-			String country = scan.next();
-			System.out.println("Enter your zip/postal code: ");
-			String zipCode = scan.next();
-			System.out.println("Enter your phone number: ");
-			String phoneNumber = scan.next();
-			
-			phoneNumber = validation.validatePhone(phoneNumber, scan);
-	
-			
 			
 			// write the users data to the file
 			try {
@@ -260,19 +230,73 @@ import java.nio.file.Paths;
 			}catch(Exception e) {
 				System.out.println("Error creating file");
 			}
-			
-			
-			
-			try {
-				writeToFile(email, password, firstName, lastName, country, zipCode, phoneNumber);
-				
-			}catch(Exception e) {
-				System.out.println("Error writing user data to file");
-			}
-			
-			System.out.println("Account created. Please sign in.");
 
-		}
+			//char emailGood = 'n';
+			System.out.println("Enter your email address: ");
+			String email = scan.next();
+			
+			email = emailValidation.validateEmail(email, scan); // call the function from emailValidation to validate the emails
+			
+			// check to see that there is not an account with that email
+			
+			
+			
+			// need to read in the file and then iterate over it, and see if the email is in the file at all
+			
+			char foundEmail = 'n';
+			try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
+				for(String line = br.readLine(); line != null; line = br.readLine()) {
+					if (line.contains(email)) {
+						foundEmail = 'y';
+						
+					}// end if
+					
+					
+				}// end for
+			
+			
+			}catch(Exception e){
+				System.out.println("No file to search");
+				
+			}// end try
+			
+			if(foundEmail == 'n') {
+				System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
+				String password = scan.next();
+
+				password = validation.validatePasswords(password, scan);
+						
+				System.out.println("Enter your first name: ");
+				String firstName = scan.next();
+				System.out.println("Enter your last name: ");
+				String lastName = scan.next();
+				System.out.println("Enter your country: ");
+				String country = scan.next();
+				System.out.println("Enter your zip/postal code: ");
+				String zipCode = scan.next();
+				System.out.println("Enter your phone number: ");
+				String phoneNumber = scan.next();
+				
+				phoneNumber = validation.validatePhone(phoneNumber, scan);
+								
+				
+				try {
+					writeToFile(email, password, firstName, lastName, country, zipCode, phoneNumber);
+					
+				}catch(Exception e) {
+					System.out.println("Error writing user data to file");
+				}
+				
+				System.out.println("Account created. Please sign in.");				
+				
+			} // end if
+			
+			else {
+				
+				System.out.println("An account with that email address already exists. Try again with a new email address. ");
+			}// end else
+			
+		} // end function
 		
 		
 		public static void logIn(Scanner scan) throws FileNotFoundException, IOException {
