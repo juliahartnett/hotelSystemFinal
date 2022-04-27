@@ -321,21 +321,20 @@ import java.util.Date;
 				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
 					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						if (line.contains(email)) {
+						String [] arrayOfCustomer = line.split(" ",8);
+						if(arrayOfCustomer[1].equals(email)) {
 							foundEmail = 'y';
 							
-						}// end if
+						} // end if
 						
-						
-					}// end for
+							
+						}// end for
 				
 				
 				}catch(Exception e){
 					System.out.println("No file to search");
 					
 				}// end try
-				
-				//////////// CURRENT BUG: says julia is a valid account email when no account with that email exists
 				
 				
 				if(foundEmail == 'y') {
@@ -353,7 +352,7 @@ import java.util.Date;
 						else {
 							// row does not contain password
 						
-								 System.out.println("Password does not match");								 
+								 System.out.println("Password does not match");		// bug here where it prints out that password does not match when it does						 
 							 }// end else
 							
 						} // end for
