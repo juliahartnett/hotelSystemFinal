@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.Date;
 
@@ -71,7 +72,12 @@ import java.util.Date;
 				}
 					
 				else if(choice == 7) {
-					feedback(scan);
+					try {
+						feedback(scan);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				else if(choice == 8) {
@@ -321,20 +327,21 @@ import java.util.Date;
 				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
 					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						String [] arrayOfCustomer = line.split(" ",8);
-						if(arrayOfCustomer[1].equals(email)) {
+						if (line.contains(email)) {
 							foundEmail = 'y';
 							
-						} // end if
+						}// end if
 						
-							
-						}// end for
+						
+					}// end for
 				
 				
 				}catch(Exception e){
 					System.out.println("No file to search");
 					
 				}// end try
+				
+				//////////// CURRENT BUG: says julia is a valid account email when no account with that email exists
 				
 				
 				if(foundEmail == 'y') {
@@ -352,7 +359,7 @@ import java.util.Date;
 						else {
 							// row does not contain password
 						
-								 System.out.println("Password does not match");		// bug here where it prints out that password does not match when it does						 
+								 System.out.println("Password does not match");								 
 							 }// end else
 							
 						} // end for
@@ -385,24 +392,69 @@ import java.util.Date;
 		} // end signOut function
 		
 		
-		public static void feedback(Scanner scan) {
-			Date date = new Date();
-			System.out.println("Title:");
-			scan.nextLine();
-			String title = scan.nextLine();
-
-			
-			System.out.println("Please rate our service(enter a number between 1-5): ");
-			int rate = scan.nextInt();
-			
-			System.out.println("Comment: ");
-			scan.nextLine();
-			String comment = scan.nextLine();
-			
-			System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+"\n"+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
-			}
+		public static void feedback(Scanner scan) throws Exception {
+			System.out.println("1. Make a review 2. See other comments");
+			int fbSelect = scan.nextInt();
+			if (fbSelect == 1) { 
+				try {
+					createFile2();
+					
+				}catch(Exception e) {
+					System.out.println("Error creating file");
+				} 
+				
+				Date date = new Date();
+				System.out.println("Title:");
+				scan.nextLine();
+				String title = scan.nextLine();
 	
+				
+				System.out.println("Please rate our service(enter a number between 1-5): ");
+				int rate = scan.nextInt();
+				
+				System.out.println("Comment: ");
+				scan.nextLine();
+				String comment = scan.nextLine();
+				
+				try {
+					writeToFile2(title, rate, date, comment);
+				
+				}catch(Exception e) {
+					System.out.println("Error writing user data to file");
+				}
+				
+				System.out.println("\n"+"Title: "+title +"\n"+ "Date: "+ date+"\n"+ "Rate: "+ rate +"\n" + "Comment: " + comment+"\n");
+				}
+				
+				
+			
+			if(fbSelect == 2) {
+				try(BufferedReader bfreader = new BufferedReader(new FileReader("review.txt"))){
+				String s,str = new String();
+				while(( s = bfreader.readLine())!= null) {
+					str += s +"\n";
+					}
+				bfreader.close();
+				System.out.println(str);
+				}
+				}
+	}
 
+
+		public static void createFile2() {
+			try {
+				File reviewStore = new File("review.txt");
+				if(reviewStore.createNewFile()) {
+					//System.out.println("File created");
+				}
+				else {
+					//System.out.println("File already exists");
+				}
+			} catch (IOException e) {
+				System.out.println("Error creating the file");
+				e.printStackTrace();
+			}
+		}
 		
 		public static void createFile() {
 			try {
@@ -419,6 +471,19 @@ import java.util.Date;
 			}
 						
 		}
+		
+		public static void writeToFile2(String title, int rate, Date date, String comment ) {
+			try {
+				String feedBack = "Title: "+title +"\n" + "Rate: "+ rate+"\n"+"Date: " + date +"\n" +"Comment: " +comment+ "\n";
+				FileWriter myWriter2 = new FileWriter("review.txt", true);
+				myWriter2.write(feedBack);
+				myWriter2.close();
+			} catch (IOException e) {
+				System.out.println("Error writing to the file");
+				e.printStackTrace();
+				}
+		}
+
 		
 		public static void writeToFile(String email, String password, String firstName, String lastName, String country, String zipCode, String phoneNumber) {
 			try {
