@@ -16,6 +16,7 @@ import java.util.Date;
 		
 		public static char logInStat = 'F';
 		public static String currentUser = "";
+		public static String currentUserInfo = "";
 		
 		public static void main(String[] args) throws Exception {
 			
@@ -106,29 +107,44 @@ import java.util.Date;
 		public static void reservationSteps(Scanner scan) {
 			// once the customers info is in and they want to make a reservation
 
-			// write the version of this that gets it from the file
-			
-			System.out.println("To complete your Reservation: ");
-			
+		
 			System.out.println("Enter the number of occupants: ");
 			int numPeople = scan.nextInt();
+			
+			System.out.println("Enter the check-in Month & Date (numbers only, for example: xx/xx/xxxx): ");
+			String checkinMonthD = scan.next();
+			checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
+
 			System.out.println("Enter the check in time: ");
 			String checkin = scan.next();
 			checkin = validation.validateCheckin(checkin, scan);
+			
+			System.out.println("Enter the check-out Month & Date (numbers only, for example: xx/xx/xxxx): ");
+			String checkoutMonthD = scan.next();
+			checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
+
 			System.out.println("Enter the check out time: ");
 			String checkout = scan.next();
 			checkout = validation.validateCheckout(checkout, scan);
+			
+
 			System.out.println("Select a room type: ");
 			System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 			
 			char roomType = scan.next().charAt(0);
 			
-			if(roomType != 'a' && roomType != 'b' && roomType != 'c' && roomType != 'd' && roomType != 'e'&& roomType != 'f') {
-				System.out.println("This is not a valid room type - reservation voided. ");	
-			} // if the roomtype is not a,b,c,d,e then void the reservation 
-			else {
-				System.out.println("Thank you for your reservation, see you soon!");
-			}
+			roomType = (char) emailValidation.numPeopleValidation(numPeople, scan, roomType);
+			
+			String [] arrayOfCustomer = currentUserInfo.split(" ",8);
+			
+			System.out.println("RESERVATION CONFIRMATION: \n");
+			System.out.println("NAME: " + arrayOfCustomer[2] + " "+  arrayOfCustomer[3]);
+			System.out.println("COUNTRY: " + arrayOfCustomer[4]);
+			System.out.println("ZIP CODE: " + arrayOfCustomer[5]);
+			System.out.println("PHONE NUMBER: " + arrayOfCustomer[6]);
+											
+			System.out.println("Thank you for your reservation, see you soon!");
+			
 			
 		}
 			
@@ -207,18 +223,21 @@ import java.util.Date;
 						
 						char roomType = scan.next().charAt(0);
 						
-						emailValidation.numPeopleValidation(numPeople, scan, roomType);
+						roomType = (char) emailValidation.numPeopleValidation(numPeople, scan, roomType);
 						
 						
+						System.out.println("RESERVATION CONFIRMATION: \n");
+						System.out.println("NAME: " + firstName + " "+  lastName);
+						System.out.println("COUNTRY: " + country);
+						System.out.println("ZIP CODE: " + zipCode);
+						System.out.println("PHONE NUMBER: " + phoneNumber);
+														
+						System.out.println("Thank you for your reservation, see you soon!");
 						
-						if(roomType != 'a' && roomType != 'b' && roomType != 'c' && roomType != 'd' && roomType != 'e' && roomType != 'f') {
-							System.out.println("This is not a valid room type - reservation voided. ");	
-						} // if the roomtype is not a,b,c,d,e then void the reservation 
-						else {
-							System.out.println("Thank you for your reservation, see you soon!");
-						}// end else				
 						
-					}// end the register as a guest
+							
+						
+					}// end the register as a guest function
 					
 					else {
 						// if they do not enter 1,2, or 3
@@ -324,85 +343,58 @@ import java.util.Date;
 			else {
 				System.out.println("Enter your email: "); // ask the user for their email
 				String email = scan.next();
-				
-				// look through the file for the users email
-				// if we find the email, then ask for their password
-				// if the password matches, then sign the user in
-				// if the password does not match then let the user know and quit to the main menu
-				// if we do not find the email, let the user know and quit to the main menu
-				// print an error message if the file does not work as it is supposed to
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
-					String line = br.readLine();
-					while(line != null) {
-						System.out.println(line);
+					char foundEmail = 'n';			
+					String line;
+					while((line = br.readLine()) != null&& (foundEmail == 'n')) {
+						// look through the file for the users email
 						String [] arrayOfCustomer = line.split(" ",8);
-						if(arrayOfCustomer[1].equals(email)) {
+						if(arrayOfCustomer[0].equals(email)) {
 							foundEmail = 'y';
-						} // end if
-						
-						// read next line
-						line = br.readLine();
-						
-						
-					} // end while
-					if(foundEmail == 'n') {
-						System.out.println("No account with that email found");
-					}
-					else {
-						System.out.println("Enter your password: ");
-						String password = scan.next();
-						BufferedReader br2 = new BufferedReader(new FileReader("customers.txt"));
-						for(String line2 = br2.readLine(); line2 != null; line2 = br.readLine()) {
-							if (line2.contains(password)) {
-								currentUser = email;
-								 logInStat = 'T'; // change the logInStat to T
-								 String [] arrayOfCustomer = line2.split(" ",8 );
-								 String name = arrayOfCustomer[2]; // get the customers name
-								 System.out.println("Welcome, " + name); // print a welcome message	
-							}// end if 
+							// if we find the email, then ask for their password
+							System.out.println("Enter your password: ");
+							String password = scan.next();
+							if(arrayOfCustomer[1].equals(password)) {
+								// if the password matches, then sign the user in
+								logInStat = 'T';
+								currentUserInfo = line;
+								System.out.println("Account logged in. ");
+								String name = arrayOfCustomer[2]; // get the customers name
+								System.out.println("Welcome, " + name); // print a welcome message									
+							} // end if password matches
 							else {
-								// row does not contain password
-							
-									 System.out.println("Password does not match");		// bug here where it prints out that password does not match when it does						 
-								 }// end else
+								// if the password does not match then let the user know and quit to the main menu
+								System.out.println("The password is incorrect. Please try again. ");								
 								
-							} // end for
+							} // end else the password does not match
+														
+						} // if email exists
+
 						
 						
-					}
-											
-							
+						
+					} // end while loop
 				
-				
-				
+					
+				if(foundEmail == 'n') {
+					
+					// if we do not find the email, let the user know and quit to the main menu
+					
+					System.out.println("No account found with that email. Please try again or create an account. ");
+					
+				}
+						
 				}catch(Exception e){
+					// print an error message if the file does not work as it is supposed to
 					System.out.println("No file to search");
 					
-				}// end try
+				}// end catch
 				
-				
-				
-					
 			} // end else
+				
+
 		
-			} // end logIn function
+	} // end logIn function
 							
 			
 		public static void contactUs() {
