@@ -71,7 +71,7 @@ public class validation {
             passwordTime = 'y';
         }
         while(passwordTime != 'y'){
-            System.out.println("Your password is invalid. Remember, your password must be at least 8 characters but no more than 20, and contain at least one uppercase letter, one number, and one special character.");
+            System.out.println("Your password is invalid. Remember, your password must be at least 8 characters but no more than 20, and must contain at least one uppercase letter, one digit, and one special character.");
             password = scan.next();
             if (password.matches(passwordReg)){
                 passwordTime = 'y';
