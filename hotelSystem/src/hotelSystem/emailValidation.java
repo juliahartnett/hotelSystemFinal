@@ -101,31 +101,31 @@ public class emailValidation {
 	}
 	
 	public static String checkinMDValidation(String checkinMonthD, Scanner scan) {
-			String regMD = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+			String regMD = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
 			char monthDGood = 'n';
 			while (monthDGood == 'n'){
 				if(checkinMonthD.matches(regMD)) {
 					monthDGood = 'y';
 				}
 				else {
-					System.out.println("Invalid, the format should be xx/xx/xxxx: ");
+					System.out.println("Invalid, the format should be dd/mm/yyyy: ");
 					checkinMonthD = scan.next();
 				}
 			}
 			return checkinMonthD;
 		}
 	public static String checkoutMDValidation(String checkoutMonthD, String checkinMonthD, Scanner scan) {
-			String regMD = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+			String regMD = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
 			char monthDOK = 'n';
 			while (monthDOK == 'n') {
 				//checkoutMonthD.matches(regMD) && 
 				if( checkoutMonthD.matches(regMD) && !checkoutMonthD.equals(checkinMonthD)) {
-						System.out.println("check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );
+						System.out.println("Your: "+"check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );
 						monthDOK = 'y';
 				}
 				else {
 					System.out.println("check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );	
-					System.out.println("Invalid, the format should be xx/xx/xxxx, check-in and check-out dates cannot be the same day: ");
+					System.out.println("Invalid, the format should be dd/mm/yyyy, check-in and check-out dates cannot be the same day: ");
 					checkoutMonthD = scan.next();
 					
 				}
