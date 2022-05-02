@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.Date;
 
@@ -18,7 +17,7 @@ import java.util.Date;
 		public static char logInStat = 'F';
 		public static String currentUser = "";
 		
-		public static void main(String[] args) throws FileNotFoundException, IOException {
+		public static void main(String[] args) throws Exception {
 			
 			// set some values
 			char kg = 'y'; // LCV
@@ -72,12 +71,7 @@ import java.util.Date;
 				}
 					
 				else if(choice == 7) {
-					try {
-						feedback(scan);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					feedback(scan);
 				}
 				
 				else if(choice == 8) {
@@ -254,8 +248,6 @@ import java.util.Date;
 			
 			// check to see that there is not an account with that email
 			
-			
-			
 			// need to read in the file and then iterate over it, and see if the email is in the file at all
 			
 			char foundEmail = 'n';
@@ -324,16 +316,71 @@ import java.util.Date;
 				System.out.println("Enter your email: "); // ask the user for their email
 				String email = scan.next();
 				
+				// look through the file for the users email
+				// if we find the email, then ask for their password
+				// if the password matches, then sign the user in
+				// if the password does not match then let the user know and quit to the main menu
+				// if we do not find the email, let the user know and quit to the main menu
+				// print an error message if the file does not work as it is supposed to
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				char foundEmail = 'n';
 				try(BufferedReader br = new BufferedReader(new FileReader("customers.txt"))){
-					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						if (line.contains(email)) {
+					String line = br.readLine();
+					while(line != null) {
+						System.out.println(line);
+						String [] arrayOfCustomer = line.split(" ",8);
+						if(arrayOfCustomer[1].equals(email)) {
 							foundEmail = 'y';
+						} // end if
+						
+						// read next line
+						line = br.readLine();
+						
+						
+					} // end while
+					if(foundEmail == 'n') {
+						System.out.println("No account with that email found");
+					}
+					else {
+						System.out.println("Enter your password: ");
+						String password = scan.next();
+						BufferedReader br2 = new BufferedReader(new FileReader("customers.txt"));
+						for(String line2 = br2.readLine(); line2 != null; line2 = br.readLine()) {
+							if (line2.contains(password)) {
+								currentUser = email;
+								 logInStat = 'T'; // change the logInStat to T
+								 String [] arrayOfCustomer = line2.split(" ",8 );
+								 String name = arrayOfCustomer[2]; // get the customers name
+								 System.out.println("Welcome, " + name); // print a welcome message	
+							}// end if 
+							else {
+								// row does not contain password
 							
-						}// end if
+									 System.out.println("Password does not match");		// bug here where it prints out that password does not match when it does						 
+								 }// end else
+								
+							} // end for
 						
 						
-					}// end for
+					}
+											
+							
+				
 				
 				
 				}catch(Exception e){
@@ -341,33 +388,10 @@ import java.util.Date;
 					
 				}// end try
 				
-				//////////// CURRENT BUG: says julia is a valid account email when no account with that email exists
 				
 				
-				if(foundEmail == 'y') {
-					System.out.println("Enter your password: ");
-					String password = scan.next();
-					BufferedReader br = new BufferedReader(new FileReader("customers.txt"));
-					for(String line = br.readLine(); line != null; line = br.readLine()) {
-						if (line.contains(password)) {
-							currentUser = email;
-							 logInStat = 'T'; // change the logInStat to T
-							 String [] arrayOfCustomer = line.split(" ",8 );
-							 String name = arrayOfCustomer[2]; // get the customers name
-							 System.out.println("Welcome, " + name); // print a welcome message	
-						}// end if 
-						else {
-							// row does not contain password
-						
-								 System.out.println("Password does not match");								 
-							 }// end else
-							
-						} // end for
-				}// end if
-					 else {
-						 System.out.println("Email does not belong to an account");							 
-					 }	
-			}
+					
+			} // end else
 		
 			} // end logIn function
 							
@@ -440,21 +464,8 @@ import java.util.Date;
 				}
 	}
 
+	
 
-		public static void createFile2() {
-			try {
-				File reviewStore = new File("review.txt");
-				if(reviewStore.createNewFile()) {
-					//System.out.println("File created");
-				}
-				else {
-					//System.out.println("File already exists");
-				}
-			} catch (IOException e) {
-				System.out.println("Error creating the file");
-				e.printStackTrace();
-			}
-		}
 		
 		public static void createFile() {
 			try {
@@ -472,6 +483,21 @@ import java.util.Date;
 						
 		}
 		
+		public static void createFile2() {
+			try {
+				File reviewStore = new File("review.txt");
+				if(reviewStore.createNewFile()) {
+					//System.out.println("File created");
+				}
+				else {
+					//System.out.println("File already exists");
+				}
+			} catch (IOException e) {
+				System.out.println("Error creating the file");
+				e.printStackTrace();
+			}
+		}
+		
 		public static void writeToFile2(String title, int rate, Date date, String comment ) {
 			try {
 				String feedBack = "Title: "+title +"\n" + "Rate: "+ rate+"\n"+"Date: " + date +"\n" +"Comment: " +comment+ "\n";
@@ -483,7 +509,6 @@ import java.util.Date;
 				e.printStackTrace();
 				}
 		}
-
 		
 		public static void writeToFile(String email, String password, String firstName, String lastName, String country, String zipCode, String phoneNumber) {
 			try {
