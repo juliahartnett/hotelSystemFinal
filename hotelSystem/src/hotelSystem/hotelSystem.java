@@ -184,15 +184,23 @@ import java.util.Date;
 						
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
+						
+						System.out.println("Enter the check-in Month & Date (numbers only, for example: xx/xx/xxxx): ");
+						String checkinMonthD = scan.next();
+						checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
 
 						System.out.println("Enter the check in time: ");
 						String checkin = scan.next();
 						checkin = validation.validateCheckin(checkin, scan);
+						
+						System.out.println("Enter the check-out Month & Date (numbers only, for example: xx/xx/xxxx): ");
+						String checkoutMonthD = scan.next();
+						checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
 
 						System.out.println("Enter the check out time: ");
 						String checkout = scan.next();
 						checkout = validation.validateCheckout(checkout, scan);
-
+						
 
 						System.out.println("Select a room type: ");
 						System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
@@ -222,6 +230,7 @@ import java.util.Date;
 				}
 				
 				} // end the function
+
 
 		
 		public static void createAccount(Scanner scan) throws FileNotFoundException, IOException {
