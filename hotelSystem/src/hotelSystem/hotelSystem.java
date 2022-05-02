@@ -268,7 +268,7 @@ import java.util.Date;
 			}// end try
 			
 			if(foundEmail == 'n') {
-				System.out.println("Create a password for your account. Passwords must be at least 8 characters: ");
+				System.out.println("Create a password for your account. Passwords must be at least 8 characters but no more than 20, and must also contain one uppercase letter, one digit, and one special character.: ");
 				String password = scan.next();
 
 				password = validation.validatePasswords(password, scan);
