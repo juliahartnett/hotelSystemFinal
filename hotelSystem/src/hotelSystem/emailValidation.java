@@ -97,8 +97,49 @@ public class emailValidation {
 				approve ="Y";
 				}
 		}
+		return roomType;
+	}
+	
+	public static String checkinMDValidation(String checkinMonthD, Scanner scan) {
+			String regMD = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+			char monthDGood = 'n';
+			while (monthDGood == 'n'){
+				if(checkinMonthD.matches(regMD)) {
+					monthDGood = 'y';
+				}
+				else {
+					System.out.println("Invalid, the format should be xx/xx/xxxx: ");
+					checkinMonthD = scan.next();
+				}
+			}
+			return checkinMonthD;
+		}
+	public static String checkoutMDValidation(String checkoutMonthD, String checkinMonthD, Scanner scan) {
+			String regMD = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+			char monthDOK = 'n';
+			while (monthDOK == 'n') {
+				//checkoutMonthD.matches(regMD) && 
+				if( checkoutMonthD.matches(regMD) && !checkoutMonthD.equals(checkinMonthD)) {
+						System.out.println("check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );
+						monthDOK = 'y';
+				}
+				else {
+					System.out.println("check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );	
+					System.out.println("Invalid, the format should be xx/xx/xxxx, check-in and check-out dates cannot be the same day: ");
+					checkoutMonthD = scan.next();
+					
+				}
+			}
+		
+		
+		return checkoutMonthD;
+	}
+}
 
 
-	return roomType;
-}
-}
+
+
+
+
+
+
