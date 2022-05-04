@@ -120,7 +120,7 @@ public class emailValidation {
 			while (monthDOK == 'n') {
 				//checkoutMonthD.matches(regMD) && 
 				if( checkoutMonthD.matches(regMD) && !checkoutMonthD.equals(checkinMonthD)) {
-						System.out.println("Your: "+"check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );
+						System.out.println("Your "+"check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );
 						monthDOK = 'y';
 				}
 				else {
@@ -135,11 +135,3 @@ public class emailValidation {
 		return checkoutMonthD;
 	}
 }
-
-
-
-
-
-
-
-

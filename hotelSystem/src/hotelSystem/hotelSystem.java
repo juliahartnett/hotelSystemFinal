@@ -111,7 +111,7 @@ import java.util.Date;
 			System.out.println("Enter the number of occupants: ");
 			int numPeople = scan.nextInt();
 			
-			System.out.println("Enter the check-in Month & Date (numbers only, for example: xx/xx/xxxx): ");
+			System.out.println("Enter the check-in Month & Date (numbers only, for example: dd/mm/yyyy): ");
 			String checkinMonthD = scan.next();
 			checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
 
@@ -119,7 +119,7 @@ import java.util.Date;
 			String checkin = scan.next();
 			checkin = validation.validateCheckin(checkin, scan);
 			
-			System.out.println("Enter the check-out Month & Date (numbers only, for example: xx/xx/xxxx): ");
+			System.out.println("Enter the check-out Month & Date (numbers only, for example: dd/mm/yyyy): ");
 			String checkoutMonthD = scan.next();
 			checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
 
@@ -142,8 +142,48 @@ import java.util.Date;
 			System.out.println("COUNTRY: " + arrayOfCustomer[4]);
 			System.out.println("ZIP CODE: " + arrayOfCustomer[5]);
 			System.out.println("PHONE NUMBER: " + arrayOfCustomer[6]);
-											
-			System.out.println("Thank you for your reservation, see you soon!");
+			System.out.println("\n");
+			
+			
+			System.out.println("Room Reservation: ");
+			// remind the customer what room they selected
+			
+			if(roomType == 'a' || roomType == 'A') {
+				System.out.println("Twin sized bed (For 1 people) - approximately 130 square feet");
+				
+			}
+			else if(roomType == 'b' || roomType == 'B') {
+				System.out.println("Queen sized bed (For 1-2 people) - approximately 190 square feet");
+			}
+			else if(roomType == 'c' || roomType == 'C') {
+				System.out.println("King sized bed (For 1-2 people) - approximately 270 square feet");
+						
+			}
+			else if(roomType == 'd' || roomType == 'D') {
+				System.out.println("2 Queen sized bed (For 2-4 people) - approximately 350 square feet");
+				
+			}
+			else if (roomType == 'e' || roomType == 'E') {
+				System.out.println("King & Queen bed (For 2-4 people) - approximately 370 square feet");
+				
+			}
+			else {
+				System.out.println("2 King sized bed (For 2-4 people) - approximately 400 square feet");
+				
+			}
+						
+			
+			System.out.println("Check In Date: " + checkinMonthD); // print the check in day and time
+			System.out.println("Check In Time: " + checkin);
+			
+			
+			System.out.println("Check Out Date: " + checkoutMonthD); // print the check out day and time
+			System.out.println("Check Out Time: " + checkout);
+			
+			System.out.println("\n");
+			
+			
+			System.out.println("Thank you for your reservation, see you soon! \n");
 			
 			
 		}
@@ -201,7 +241,7 @@ import java.util.Date;
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
 						
-						System.out.println("Enter the check-in Month & Date (numbers only, for example: xx/xx/xxxx): ");
+						System.out.println("Enter the check-in Month & Date (numbers only, for example: dd/mm/yyyy): ");
 						String checkinMonthD = scan.next();
 						checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
 
@@ -209,7 +249,7 @@ import java.util.Date;
 						String checkin = scan.next();
 						checkin = validation.validateCheckin(checkin, scan);
 						
-						System.out.println("Enter the check-out Month & Date (numbers only, for example: xx/xx/xxxx): ");
+						System.out.println("Enter the check-out Month & Date (numbers only, for example: dd/mm/yyyy): ");
 						String checkoutMonthD = scan.next();
 						checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
 
@@ -231,8 +271,45 @@ import java.util.Date;
 						System.out.println("COUNTRY: " + country);
 						System.out.println("ZIP CODE: " + zipCode);
 						System.out.println("PHONE NUMBER: " + phoneNumber);
-														
-						System.out.println("Thank you for your reservation, see you soon!");
+						System.out.println("\n");
+						
+						
+						System.out.println("Room Reservation: ");
+						// remind the customer what room they selected
+						
+						if(roomType == 'a' || roomType == 'A') {
+							System.out.println("Twin sized bed (For 1 people) - approximately 130 square feet");
+							
+						}
+						else if(roomType == 'b' || roomType == 'B') {
+							System.out.println("Queen sized bed (For 1-2 people) - approximately 190 square feet");
+						}
+						else if(roomType == 'c' || roomType == 'C') {
+							System.out.println("King sized bed (For 1-2 people) - approximately 270 square feet");
+									
+						}
+						else if(roomType == 'd' || roomType == 'D') {
+							System.out.println("2 Queen sized bed (For 2-4 people) - approximately 350 square feet");
+							
+						}
+						else if (roomType == 'e' || roomType == 'E') {
+							System.out.println("King & Queen bed (For 2-4 people) - approximately 370 square feet");
+							
+						}
+						else {
+							System.out.println("2 King sized bed (For 2-4 people) - approximately 400 square feet");
+							
+						}
+									
+						
+						System.out.println("Check In Date: " + checkinMonthD); // print the check in day and time
+						System.out.println("Check In Time: " + checkin);
+						
+						
+						System.out.println("Check Out Date: " + checkoutMonthD); // print the check out day and time
+						System.out.println("Check Out Time: " + checkout);
+						System.out.println("\n");
+						System.out.println("Thank you for your reservation, see you soon!\n");
 						
 						
 							
