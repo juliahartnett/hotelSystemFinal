@@ -20,7 +20,7 @@ public class emailValidation {
         	emailGood = 'y';
             }
             else {
-            	System.out.println("Your Email address must contain '@' and '.', the length before te @ is 3-18 characters and the email cannot end with a dot. The domain has to be '.com', '.org', '.net', '.edu', '.gov' or '.co.uk', and there can be no empty between '.' and '@'");
+            	System.out.println("Your Email address must contain '@' and '.', the length before the @ is 3-18 characters and the email cannot end with a dot. The domain has to be '.com', '.org', '.net', '.edu', '.gov' or '.co.uk', and there can be no empty between '.' and '@'");
             	System.out.println("Enter a new email address: ");
             	email = scan.next();
             }
@@ -36,8 +36,8 @@ public class emailValidation {
 		char roomF = 'n';
 		String approve = "N";
 		while (approve == "N"){
-			if (roomType == 'a' || roomType == 'A' && numPeople != 1) {
-				System.out.println("Twin sized bed is only for 1 people.");
+			if (roomType == 'a' && numPeople != 1) {
+				System.out.println("Twin sized bed is only for 1 person.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
 				System.out.println(roomType);
@@ -46,7 +46,7 @@ public class emailValidation {
 				roomA = 'y';
 				approve ="Y";
 			}
-			if (roomType =='b' || roomType == 'B' && numPeople > 2 || numPeople <= 0) {
+			if (roomType =='b' && numPeople > 2 || numPeople <= 0) {
 				System.out.println("1 Queen sized bed is for 1-2 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -56,7 +56,7 @@ public class emailValidation {
 				roomB = 'y';
 				approve ="Y";
 			}
-			if (roomType == 'c' || roomType == 'C' && numPeople > 2 || numPeople <= 0) {
+			if (roomType == 'c' && numPeople > 2 || numPeople <= 0) {
 				System.out.println("1 King sized bed is for 1-2 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -66,7 +66,7 @@ public class emailValidation {
 				roomC = 'y';
 				approve ="Y";
 			}
-			if (roomType =='d' || roomType == 'D' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='d' && numPeople < 2 && numPeople > 4) {
 				System.out.println("2 Queen sized bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -76,7 +76,7 @@ public class emailValidation {
 				roomD = 'y';
 				approve ="Y";
 			}
-			if (roomType =='e' || roomType == 'E' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='e' && numPeople < 2 && numPeople > 4) {
 				System.out.println("King & Queen bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -86,7 +86,7 @@ public class emailValidation {
 				roomE = 'y';
 				approve ="Y";
 			}
-			if (roomType =='f' || roomType == 'F' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='f' && numPeople < 2 && numPeople > 4) {
 				System.out.println(" 2 King sized bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -108,7 +108,7 @@ public class emailValidation {
 					monthDGood = 'y';
 				}
 				else {
-					System.out.println("Invalid, the format should be dd/mm/yyyy: ");
+					System.out.println("Invalid, the format should be mm/dd/yyyy: ");
 					checkinMonthD = scan.next();
 				}
 			}
@@ -125,7 +125,7 @@ public class emailValidation {
 				}
 				else {
 					System.out.println("check in date: "+ checkinMonthD +", "+"Check out date: "+checkoutMonthD );	
-					System.out.println("Invalid, the format should be dd/mm/yyyy, check-in and check-out dates cannot be the same day: ");
+					System.out.println("Invalid, the format should be mm/dd/yyyy, check-in and check-out dates cannot be the same day: ");
 					checkoutMonthD = scan.next();
 					
 				}

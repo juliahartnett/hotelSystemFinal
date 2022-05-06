@@ -100,7 +100,7 @@ import java.util.Date;
 		} // end history function
 			
 		public static void seeRooms() {
-			System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
+			System.out.println("a. Twin sized bed (For 1 person) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 		} // end see rooms function
 		
 		
@@ -111,7 +111,7 @@ import java.util.Date;
 			System.out.println("Enter the number of occupants: ");
 			int numPeople = scan.nextInt();
 			
-			System.out.println("Enter the check-in Month & Date (numbers only, for example: dd/mm/yyyy): ");
+			System.out.println("Enter the check-in Month & Date (numbers only, for example: mm/dd/yyyy): ");
 			String checkinMonthD = scan.next();
 			checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
 
@@ -119,7 +119,7 @@ import java.util.Date;
 			String checkin = scan.next();
 			checkin = validation.validateCheckin(checkin, scan);
 			
-			System.out.println("Enter the check-out Month & Date (numbers only, for example: dd/mm/yyyy): ");
+			System.out.println("Enter the check-out Month & Date (numbers only, for example: mm/dd/yyyy): ");
 			String checkoutMonthD = scan.next();
 			checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
 
@@ -129,7 +129,7 @@ import java.util.Date;
 			
 
 			System.out.println("Select a room type: ");
-			System.out.println("a. Twin sized bed (For 1 people) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
+			System.out.println("a. Twin sized bed (For 1 person) - approximately 130 square feet\nb. Queen sized bed (For 1-2 people) - approximately 190 square feet\nc. King sized bed (For 1-2 people) - approximately 270 square feet\nd. 2 Queen sized bed (For 2-4 people) - approximately 350 square feet\ne. King & Queen bed (For 2-4 people) - approximately 370 square feet\nf. 2 King sized bed (For 2-4 people) - approximately 400 square feet\n");
 			
 			char roomType = scan.next().charAt(0);
 			
@@ -149,7 +149,7 @@ import java.util.Date;
 			// remind the customer what room they selected
 			
 			if(roomType == 'a' || roomType == 'A') {
-				System.out.println("Twin sized bed (For 1 people) - approximately 130 square feet");
+				System.out.println("Twin sized bed (For 1 person) - approximately 130 square feet");
 				
 			}
 			else if(roomType == 'b' || roomType == 'B') {
@@ -241,7 +241,7 @@ import java.util.Date;
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
 						
-						System.out.println("Enter the check-in Month & Date (numbers only, for example: dd/mm/yyyy): ");
+						System.out.println("Enter the check-in Month & Date (numbers only, for example: mm/dd/yyyy): ");
 						String checkinMonthD = scan.next();
 						checkinMonthD = emailValidation.checkinMDValidation(checkinMonthD, scan);
 
@@ -249,7 +249,7 @@ import java.util.Date;
 						String checkin = scan.next();
 						checkin = validation.validateCheckin(checkin, scan);
 						
-						System.out.println("Enter the check-out Month & Date (numbers only, for example: dd/mm/yyyy): ");
+						System.out.println("Enter the check-out Month & Date (numbers only, for example: mm/dd/yyyy): ");
 						String checkoutMonthD = scan.next();
 						checkoutMonthD = emailValidation.checkoutMDValidation(checkoutMonthD, checkinMonthD, scan);
 
@@ -278,7 +278,7 @@ import java.util.Date;
 						// remind the customer what room they selected
 						
 						if(roomType == 'a' || roomType == 'A') {
-							System.out.println("Twin sized bed (For 1 people) - approximately 130 square feet");
+							System.out.println("Twin sized bed (For 1 person) - approximately 130 square feet");
 							
 						}
 						else if(roomType == 'b' || roomType == 'B') {
@@ -373,7 +373,7 @@ import java.util.Date;
 			}// end try
 			
 			if(foundEmail == 'n') {
-				System.out.println("Create a password for your account. Passwords must be at least 8 characters but no more than 20, and must also contain one uppercase letter, one digit, and one special character.: ");
+				System.out.println("Create a password for your account. Passwords must be at least 8 characters but no more than 20, and must also contain one uppercase letter, one digit, and one special character: ");
 				String password = scan.next();
 
 				password = validation.validatePasswords(password, scan);
