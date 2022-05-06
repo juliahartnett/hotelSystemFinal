@@ -65,7 +65,7 @@ public class validation {
 	
 	public static String validatePasswords(String password, Scanner scan){
         //validate passwords
-        String passwordReg = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()!])(?=\\S+$).{8, 20}$";
+        String passwordReg = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()!])(?=\\S+$).{8,20}$";
         char passwordTime = 'n';
         if (password.matches(passwordReg)){
             passwordTime = 'y';
