@@ -36,7 +36,7 @@ public class emailValidation {
 		char roomF = 'n';
 		String approve = "N";
 		while (approve == "N"){
-			if (roomType == 'a' && numPeople != 1) {
+			if (roomType == 'a' || roomType == 'A' && numPeople != 1) {
 				System.out.println("Twin sized bed is only for 1 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -46,7 +46,7 @@ public class emailValidation {
 				roomA = 'y';
 				approve ="Y";
 			}
-			if (roomType =='b' && numPeople > 2 || numPeople <= 0) {
+			if (roomType =='b' || roomType == 'B' && numPeople > 2 || numPeople <= 0) {
 				System.out.println("1 Queen sized bed is for 1-2 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -56,7 +56,7 @@ public class emailValidation {
 				roomB = 'y';
 				approve ="Y";
 			}
-			if (roomType == 'c' && numPeople > 2 || numPeople <= 0) {
+			if (roomType == 'c' || roomType == 'C' && numPeople > 2 || numPeople <= 0) {
 				System.out.println("1 King sized bed is for 1-2 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -66,7 +66,7 @@ public class emailValidation {
 				roomC = 'y';
 				approve ="Y";
 			}
-			if (roomType =='d' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='d' || roomType == 'D' && numPeople < 2 && numPeople > 4) {
 				System.out.println("2 Queen sized bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -76,7 +76,7 @@ public class emailValidation {
 				roomD = 'y';
 				approve ="Y";
 			}
-			if (roomType =='e' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='e' || roomType == 'E' && numPeople < 2 && numPeople > 4) {
 				System.out.println("King & Queen bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
@@ -86,7 +86,7 @@ public class emailValidation {
 				roomE = 'y';
 				approve ="Y";
 			}
-			if (roomType =='f' && numPeople < 2 && numPeople > 4) {
+			if (roomType =='f' || roomType == 'F' && numPeople < 2 && numPeople > 4) {
 				System.out.println(" 2 King sized bed is for 2-4 people.");
 				System.out.println("Please try again:");
 				roomType = scan.next().charAt(0); 
