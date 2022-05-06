@@ -110,6 +110,21 @@ import java.util.Date;
 		
 			System.out.println("Enter the number of occupants: ");
 			int numPeople = scan.nextInt();
+			char numPeopleG = 'y';
+			if (numPeople < 1 || numPeople > 4) {
+				numPeopleG = 'n';
+			}
+			while(numPeopleG == 'n') {
+				System.out.println("For the best experience, we reccomend having between 1 and 4 people in a room. ");
+				System.out.println("Enter the number of occupants: ");
+				numPeople = scan.nextInt();
+				if(numPeople >= 1 && numPeople <= 4) {
+					numPeopleG = 'y';
+				}
+				
+			}
+			
+			
 			
 			System.out.println("Enter the check-in Month & Date (numbers only, for example: mm/dd/yyyy): ");
 			String checkinMonthD = scan.next();
@@ -240,6 +255,19 @@ import java.util.Date;
 						
 						System.out.println("Enter the number of occupants: ");
 						int numPeople = scan.nextInt();
+						char numPeopleG = 'y';
+						if (numPeople < 1 || numPeople > 4) {
+							numPeopleG = 'n';
+						}
+						while(numPeopleG == 'n') {
+							System.out.println("For the best experience, we reccomend having between 1 and 4 people in a room. ");
+							System.out.println("Enter the number of occupants: ");
+							numPeople = scan.nextInt();
+							if(numPeople >= 1 && numPeople <= 4) {
+								numPeopleG = 'y';
+							}
+							
+						}
 						
 						System.out.println("Enter the check-in Month & Date (numbers only, for example: mm/dd/yyyy): ");
 						String checkinMonthD = scan.next();
